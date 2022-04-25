@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import ListItem from "./components/ListItem";
 
-function App() {
+export default function App() {
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      task: "Clean stuff",
+      completed: false,
+    },
+    {
+      id: 2,
+      task: "Pick up the kids",
+      completed: true,
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="App">
+      <form action="">
+        <label htmlFor="name">Task</label>
+        <input type="text" id="name" name="task" />
+        <button>Add Task</button>
+      </form>
+
+      <ul>
+        {tasks.map((task) => (
+          <ListItem {...task} />
+        ))}
+      </ul>
     </div>
   );
 }
-
-export default App;
