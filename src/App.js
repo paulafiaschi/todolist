@@ -15,18 +15,30 @@ export default function App() {
       completed: true,
     },
   ]);
+  function deleteItem(id) {
+    setTasks((oldState) => oldState.filter((item) => item.id !== id));
+  }
+  function submit(e) {
+    e.preventDefault();
+    const newTask = {
+      id: Math.random(),
+      task: e.target.elements.name.value, //"e.target"=form, "elements.name.value"=input text of Name field
+      completed: false,
+    };
+    setTasks((oldState) => oldState.concat(newTask));
+  }
 
   return (
     <div id="App">
-      <form action="">
+      <form onSubmit={submit}>
         <label htmlFor="name">Task</label>
-        <input type="text" id="name" name="task" />
+        <input requiredtype="text" id="name" name="task" />
         <button>Add Task</button>
       </form>
 
       <ul>
         {tasks.map((task) => (
-          <ListItem {...task} />
+          <ListItem deleteItem={deleteItem} {...task} />
         ))}
       </ul>
     </div>
